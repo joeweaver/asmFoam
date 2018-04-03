@@ -22,11 +22,10 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    multiphaseEulerFoam
+    asmFoam
 
 Description
-    Solver for a system of many compressible fluid phases including
-    heat-transfer.
+    Solver for an activated sludge system based on ASM1 biokinetics.
 
 \*---------------------------------------------------------------------------*/
 
@@ -52,6 +51,7 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     #include "createControl.H"
     #include "createFields.H"
+    #include "createAsmFields.H"
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "correctPhi.H"
