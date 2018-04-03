@@ -1,4 +1,6 @@
-Info << "Reading field SI (soluble inert organic matter)\n" << endl;
+Info << "Reading scalar fields for ASM" << endl;
+
+Info << "  Reading field SI (soluble inert organic matter)" << endl;
 
 volScalarField SI
 (
@@ -13,7 +15,7 @@ volScalarField SI
     mesh
 );
 
-Info << "Reading field SS (Readily biodegradable substrate)\n" << endl;
+Info << "  Reading field SS (Readily biodegradable substrate)" << endl;
 
 volScalarField SS
 (
@@ -28,7 +30,7 @@ volScalarField SS
     mesh
 );
 
-Info << "Reading field XI (particulate inert organic matter)\n" << endl;
+Info << "  Reading field XI (particulate inert organic matter)" << endl;
 
 volScalarField XI
 (
@@ -43,7 +45,7 @@ volScalarField XI
     mesh
 );
 
-Info << "Reading field XS (slowly biodegradable substrate)\n" << endl;
+Info << "  Reading field XS (slowly biodegradable substrate)" << endl;
 
 volScalarField XS
 (
@@ -58,7 +60,7 @@ volScalarField XS
     mesh
 );
 
-Info << "Reading field XBH (active heterotrophic biomass)\n" << endl;
+Info << "  Reading field XBH (active heterotrophic biomass)" << endl;
 
 volScalarField XBH
 (
@@ -73,7 +75,7 @@ volScalarField XBH
     mesh
 );
 
-Info << "Reading field XBA (active autotrophic biomass)\n" << endl;
+Info << "  Reading field XBA (active autotrophic biomass)" << endl;
 
 volScalarField XBA
 (
@@ -88,7 +90,7 @@ volScalarField XBA
     mesh
 );
 
-Info << "Reading field XP (particulate products arising from biomass decay)\n" << endl;
+Info << "  Reading field XP (particulate products arising from biomass decay)" << endl;
 
 volScalarField XP
 (
@@ -103,7 +105,7 @@ volScalarField XP
     mesh
 );
 
-Info << "Reading field SO (oxygen)\n" << endl;
+Info << "  Reading field SO (oxygen)" << endl;
 
 volScalarField SO
 (
@@ -118,7 +120,7 @@ volScalarField SO
     mesh
 );
 
-Info << "Reading field SNO (nitrate and nitrite)\n" << endl;
+Info << "  Reading field SNO (nitrate and nitrite)" << endl;
 
 volScalarField SNO
 (
@@ -133,7 +135,7 @@ volScalarField SNO
     mesh
 );
 
-Info << "Reading field SNH (ammonia and ammonium nitrogen)\n" << endl;
+Info << "  Reading field SNH (ammonia and ammonium nitrogen)" << endl;
 
 volScalarField SNH
 (
@@ -148,7 +150,7 @@ volScalarField SNH
     mesh
 );
 
-Info << "Reading field SND (soluble biodegradable organic nitrogen)\n" << endl;
+Info << "  Reading field SND (soluble biodegradable organic nitrogen)" << endl;
 
 volScalarField SND
 (
@@ -163,7 +165,7 @@ volScalarField SND
     mesh
 );
 
-Info << "Reading field XND (particulate biodegradable organic nitrogen)\n" << endl;
+Info << "  Reading field XND (particulate biodegradable organic nitrogen)" << endl;
 
 volScalarField XND
 (
@@ -178,7 +180,7 @@ volScalarField XND
     mesh
 );
 
-Info << "Reading field SALK (alkalinity)\n" << endl;
+Info << "  Reading field SALK (alkalinity)" << endl;
 
 volScalarField SALK
 (
@@ -193,3 +195,4 @@ volScalarField SALK
     mesh
 );
 
+Info << endl;
