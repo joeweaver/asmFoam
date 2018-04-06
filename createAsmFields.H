@@ -1,20 +1,5 @@
 Info << "Reading scalar fields for ASM" << endl;
 
-Info << "  Reading field SI (soluble inert organic matter)" << endl;
-
-volScalarField SI
-(
-    IOobject
-    (
-        "SI",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
 Info << "  Reading field SS (Readily biodegradable substrate)" << endl;
 
 volScalarField SS
@@ -22,21 +7,6 @@ volScalarField SS
     IOobject
     (
         "SS",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "  Reading field XI (particulate inert organic matter)" << endl;
-
-volScalarField XI
-(
-    IOobject
-    (
-        "XI",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -172,21 +142,6 @@ volScalarField XND
     IOobject
     (
         "XND",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info << "  Reading field SALK (alkalinity)" << endl;
-
-volScalarField SALK
-(
-    IOobject
-    (
-        "SALK",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
