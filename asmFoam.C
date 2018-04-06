@@ -106,6 +106,8 @@ int main(int argc, char *argv[])
             #include "DDtU.H"
         }
 
+        #include "asmRates.H"
+
         runTime.write();
 
         Info<< "ExecutionTime = "
