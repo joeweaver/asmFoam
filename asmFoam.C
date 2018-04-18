@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
         fluid.lookupOrDefault<scalar>("maxSlamVelocity", GREAT)
     );
 
+    #include "liquidPhase.H"
+
     turbulence->validate();
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -107,6 +109,46 @@ int main(int argc, char *argv[])
         }
 
         #include "asmRates.H"
+
+        #include "SSEqn.H"
+        SSEqn.relax();
+        SSEqn.solve();
+
+        #include "XSEqn.H"
+        XSEqn.relax();
+        XSEqn.solve();
+
+        #include "XBHEqn.H"
+        XBHEqn.relax();
+        XBHEqn.solve();
+
+        #include "XBAEqn.H"
+        XBAEqn.relax();
+        XBAEqn.solve();
+
+        #include "XPEqn.H"
+        XPEqn.relax();
+        XPEqn.solve();
+
+        #include "SOEqn.H"
+        SOEqn.relax();
+        SOEqn.solve();
+
+        #include "SNOEqn.H"
+        SNOEqn.relax();
+        SNOEqn.solve();
+
+        #include "SNHEqn.H"
+        SNHEqn.relax();
+        SNHEqn.solve();
+
+        #include "SNDEqn.H"
+        SNDEqn.relax();
+        SNDEqn.solve();
+
+        #include "XNDEqn.H"
+        XNDEqn.relax();
+        XNDEqn.solve();
 
         runTime.write();
 

@@ -76,11 +76,11 @@ volScalarField rhoAmmonification
     ka * SND * XBH
 );
 
-volScalarField rhoOrganicsHydrolysis
+volScalarField rhoOrganicHydrolysis
 (
     IOobject
     (
-        "rhoOrganicsHydrolysis",
+        "rhoOrganicHydrolysis",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -99,5 +99,5 @@ volScalarField rhoOrganicNitrogenHydrolysis
         IOobject::NO_READ,
         IOobject::AUTO_WRITE
     ),
-    rhoOrganicsHydrolysis * XND / XS
+    rhoOrganicHydrolysis * XND / XS
 );

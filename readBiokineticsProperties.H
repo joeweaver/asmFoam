@@ -149,4 +149,31 @@ dimensionedScalar etah
     biokineticsProperties.lookup("etah")
 );
 
+Info << "    Reading oxygen mass transfer coefficient, kLa" << endl;
+
+dimensionedScalar kLa
+(
+    biokineticsProperties.lookup("kLa")
+);
+
+Info << "    Reading oxygen saturation concentration, SOsat" << endl;
+
+dimensionedScalar SOsat
+(
+    biokineticsProperties.lookup("SOsat")
+);
+
+
+Info << "    Reading turbulent Schmidt number, ScT" << endl;
+scalar ScT
+(
+    readScalar(biokineticsProperties.lookup("ScT"))
+);
+
+Info << "    Reading liquid phase name, liquidName" << endl;
+word liquidName
+(
+    biokineticsProperties.lookup("liquidName")
+);
+
 Info << endl;
