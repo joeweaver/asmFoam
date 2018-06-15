@@ -88,6 +88,9 @@ int main(int argc, char *argv[])
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
+        // --- ASM rates
+        #include "asmRates.H"
+
         // --- Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
@@ -106,49 +109,19 @@ int main(int argc, char *argv[])
             }
 
             #include "DDtU.H"
+
+            // --- ASM scalars
+            #include "SSEqn.H"
+            #include "XSEqn.H"
+            #include "XBHEqn.H"
+            #include "XBAEqn.H"
+            #include "XPEqn.H"
+            #include "SOEqn.H"
+            #include "SNOEqn.H"
+            #include "SNHEqn.H"
+            #include "SNDEqn.H"
+            #include "XNDEqn.H"
         }
-
-        #include "asmRates.H"
-
-        #include "SSEqn.H"
-        SSEqn.relax();
-        SSEqn.solve();
-
-        #include "XSEqn.H"
-        XSEqn.relax();
-        XSEqn.solve();
-
-        #include "XBHEqn.H"
-        XBHEqn.relax();
-        XBHEqn.solve();
-
-        #include "XBAEqn.H"
-        XBAEqn.relax();
-        XBAEqn.solve();
-
-        #include "XPEqn.H"
-        XPEqn.relax();
-        XPEqn.solve();
-
-        #include "SOEqn.H"
-        SOEqn.relax();
-        SOEqn.solve();
-
-        #include "SNOEqn.H"
-        SNOEqn.relax();
-        SNOEqn.solve();
-
-        #include "SNHEqn.H"
-        SNHEqn.relax();
-        SNHEqn.solve();
-
-        #include "SNDEqn.H"
-        SNDEqn.relax();
-        SNDEqn.solve();
-
-        #include "XNDEqn.H"
-        XNDEqn.relax();
-        XNDEqn.solve();
 
         runTime.write();
 

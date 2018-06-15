@@ -9,3 +9,6 @@ fvScalarMatrix SNHEqn
     - alphaLiquid*(iXB+1/YA)*rhoAutotrophAerobicGrowth
     + alphaLiquid*rhoAmmonification
 );
+
+SNHEqn.relax();
+SNHEqn.solve();

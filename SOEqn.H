@@ -8,3 +8,6 @@ fvScalarMatrix SOEqn
     - alphaLiquid*(4.57-YA)/YA*rhoAutotrophAerobicGrowth
     + alphaLiquid*kLa*(SOsat - SO)
 );
+
+SOEqn.relax();
+SOEqn.solve();

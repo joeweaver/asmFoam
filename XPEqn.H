@@ -7,3 +7,6 @@ fvScalarMatrix XPEqn
       alphaLiquid*fP*rhoHeterotrophDecay
     + alphaLiquid*fP*rhoAutotrophDecay
 );
+
+XPEqn.relax();
+XPEqn.solve();

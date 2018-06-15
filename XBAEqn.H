@@ -7,3 +7,6 @@ fvScalarMatrix XBAEqn
       alphaLiquid*rhoAutotrophAerobicGrowth
     - alphaLiquid*rhoAutotrophDecay
 );
+
+XBAEqn.relax();
+XBAEqn.solve();

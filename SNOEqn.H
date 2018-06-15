@@ -7,3 +7,6 @@ fvScalarMatrix SNOEqn
     - alphaLiquid*(1-YH)/2.86/YH*rhoHeterotrophAnoxicGrowth
     + alphaLiquid*rhoAutotrophAerobicGrowth/YA
 );
+
+SNOEqn.relax();
+SNOEqn.solve();

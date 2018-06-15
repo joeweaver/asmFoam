@@ -8,3 +8,6 @@ fvScalarMatrix XSEqn
     + alphaLiquid*(1-fP)*rhoAutotrophDecay
     - alphaLiquid*rhoOrganicHydrolysis
 );
+
+XSEqn.relax();
+XSEqn.solve();

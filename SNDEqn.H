@@ -7,3 +7,6 @@ fvScalarMatrix SNDEqn
     - alphaLiquid*rhoAmmonification
     + alphaLiquid*rhoOrganicNitrogenHydrolysis
 );
+
+SNDEqn.relax();
+SNDEqn.solve();

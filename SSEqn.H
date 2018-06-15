@@ -8,3 +8,6 @@ fvScalarMatrix SSEqn
     - alphaLiquid*rhoHeterotrophAnoxicGrowth/YH
     + alphaLiquid*rhoOrganicHydrolysis
 );
+
+SSEqn.relax();
+SSEqn.solve();

@@ -8,3 +8,6 @@ fvScalarMatrix XBHEqn
     + alphaLiquid*rhoHeterotrophAnoxicGrowth
     - alphaLiquid*rhoHeterotrophDecay
 );
+
+XBHEqn.relax();
+XBHEqn.solve();
