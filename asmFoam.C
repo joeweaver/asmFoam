@@ -39,6 +39,7 @@ Description
 #include "pimpleControl.H"
 #include "IOMRFZoneList.H"
 #include "CorrectPhi.H"
+#include "oxygenTransferModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -71,7 +72,8 @@ int main(int argc, char *argv[])
         fluid.lookupOrDefault<scalar>("maxSlamVelocity", GREAT)
     );
 
-    #include "liquidPhase.H"
+    #include "fluidPhases.H"
+    #include "createOxygenTransferModel.H"
 
     turbulence->validate();
 

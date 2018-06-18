@@ -1,4 +1,5 @@
 EXE_INC = \
+    -IoxygenTransferModels/lnInclude \
     -I$(FOAM_SOLVERS)/multiphase/multiphaseEulerFoam \
     -I$(FOAM_SOLVERS)/multiphase/multiphaseEulerFoam/multiphaseSystem/lnInclude \
     -I$(FOAM_SOLVERS)/multiphase/multuphaseEulerFoam/multiphaseFixedFluxPressure \
@@ -15,6 +16,8 @@ EXE_INC = \
 
 
 EXE_LIBS = \
+    -L$(FOAM_USER_LIBBIN) \
+    -loxygenTransferModels \
     -lmultiphaseSystem \
     -linterfaceProperties \
     -lincompressibleTransportModels \
