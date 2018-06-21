@@ -1,12 +1,13 @@
 fvScalarMatrix XSEqn
 (
-    fvm::ddt(max(alphaLiquid, 1.0e-6), XS)
+    fvm::ddt(alphaLiquid, XS)
     + fvm::div(liquidPhase.alphaPhi(), XS)
-    - fvm::laplacian(alphaLiquid*turbulence->nut()/ScT, XS)
+    - fvm::laplacian(alphaLiquid*(turbulence->nut()/ScT + DXS), XS)
     ==
       alphaLiquid*(1-fP)*rhoHeterotrophDecay
     + alphaLiquid*(1-fP)*rhoAutotrophDecay
     - alphaLiquid*rhoOrganicHydrolysis
+    - fvm::Sp(dissipationCoeff, XS)
 );
 
 XSEqn.relax();

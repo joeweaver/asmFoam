@@ -6,11 +6,11 @@ dimensionedScalar smallConc = dimensionedScalar("smallConc", dimensionSet(1,-3,0
 volScalarField mult = 1 - pos(alphaGas - 0.5);
 
 // Define process rates
-volScalarField rhoHeterotrophAerobicGrowth = mult * max(muH * SS/(KS + SS) * SO/(KOH + SO) * XBH, zeroRate);
-volScalarField rhoHeterotrophAnoxicGrowth = mult * max(muH * SS/(KS + SS) * KOH/(KOH + SO) * SNO/(KNO + SNO) * etag * XBH, zeroRate);
-volScalarField rhoAutotrophAerobicGrowth = mult * max(muA * SNH/(KNH + SNH) * SO/(KOA + SO) * XBA, zeroRate);
-volScalarField rhoHeterotrophDecay = mult * max(bH * XBH, zeroRate);
-volScalarField rhoAutotrophDecay = mult * max(bA * XBA, zeroRate);
-volScalarField rhoAmmonification = mult * max(ka * SND * XBH, zeroRate);
-volScalarField rhoOrganicHydrolysis = mult * max(kh * XS/(KX*XBH + max(XS, smallConc)) * (SO/(KOH + SO) + etah * KOH/(KOH + SO) * SNO/(KNO + SNO)) * XBH, zeroRate);
-volScalarField rhoOrganicNitrogenHydrolysis = mult * max(rhoOrganicHydrolysis * XND / max(XS, smallConc), zeroRate);
+rhoHeterotrophAerobicGrowth = mult * max(muH * SS/(KS + SS) * SO/(KOH + SO) * XBH, zeroRate);
+rhoHeterotrophAnoxicGrowth = mult * max(muH * SS/(KS + SS) * KOH/(KOH + SO) * SNO/(KNO + SNO) * etag * XBH, zeroRate);
+rhoAutotrophAerobicGrowth = mult * max(muA * SNH/(KNH + SNH) * SO/(KOA + SO) * XBA, zeroRate);
+rhoHeterotrophDecay = mult * max(bH * XBH, zeroRate);
+rhoAutotrophDecay = mult * max(bA * XBA, zeroRate);
+rhoAmmonification = mult * max(ka * SND * XBH, zeroRate);
+rhoOrganicHydrolysis = mult * max(kh * XS/(KX*XBH + max(XS, smallConc)) * (SO/(KOH + SO) + etah * KOH/(KOH + SO) * SNO/(KNO + SNO)) * XBH, zeroRate);
+rhoOrganicNitrogenHydrolysis = mult * max(rhoOrganicHydrolysis * XND / max(XS, smallConc), zeroRate);

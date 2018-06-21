@@ -1,11 +1,12 @@
 fvScalarMatrix XBAEqn
 (
-    fvm::ddt(max(alphaLiquid, 1.0e-6), XBA)
+    fvm::ddt(alphaLiquid, XBA)
     + fvm::div(liquidPhase.alphaPhi(), XBA)
-    - fvm::laplacian(alphaLiquid*turbulence->nut()/ScT, XBA)
+    - fvm::laplacian(alphaLiquid*(turbulence->nut()/ScT + DXBA), XBA)
     ==
       alphaLiquid*rhoAutotrophAerobicGrowth
     - alphaLiquid*rhoAutotrophDecay
+    - fvm::Sp(dissipationCoeff, XBA)
 );
 
 XBAEqn.relax();
