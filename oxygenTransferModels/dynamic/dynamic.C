@@ -67,7 +67,7 @@ Foam::tmp<Foam::volScalarField> Foam::oxygenTransferModels::dynamic::kLa()
     volScalarField d = gasPhase_.d();
     volScalarField kL = 2*sqrt(DL_*Vr/pi/d);
     volScalarField alphaGas = gasPhase_;
-    volScalarField a = 6*alphaGas/d/(1 - max(alphaGas, 1e-6));
+    volScalarField a = 6*alphaGas/d/max((1 - alphaGas), SMALL);
     volScalarField factor = 1 - pos(alphaGas - 0.5);
     kLa_ = kL*a*factor;
     return kLa_;
