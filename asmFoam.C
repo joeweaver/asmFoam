@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
             liquidPhase.U() *= 1 - pos(alphaGas - 0.99);
 
             // --- Calculate dissipation coefficient for pure gas regions
-            volScalarField dissipationCoeff = pos(alphaGas - 0.99)/runTime.deltaT();
+            dissipationCoeff = pos(alphaGas - 0.99)/runTime.deltaT();
 
             // --- Solve ASM scalar equations
             #include "SSEqn.H"
