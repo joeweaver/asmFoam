@@ -48,7 +48,7 @@ Foam::oxygenTransferModels::constant::constant
 )
 :
     oxygenTransferModel(oxygenTransferModelDict, liquidPhase, gasPhase),
-    kLa_(oxygenTransferModelDict.subDict("constantCoeffs").lookup("kLa"))
+    kLaValue_(oxygenTransferModelDict.subDict("constantCoeffs").lookup("kLa"))
 {}
 
 
@@ -61,26 +61,9 @@ Foam::oxygenTransferModels::constant::~constant()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 Foam::tmp<Foam::volScalarField> Foam::oxygenTransferModels::constant::kLa()
-const
 {
-    return
-    tmp<volScalarField>
-    (
-        new volScalarField
-        (
-            IOobject
-            (
-                "kLa",
-                liquidPhase_.U().time().timeName(),
-                liquidPhase_.U().db(),
-                IOobject::NO_READ,
-                IOobject::NO_WRITE,
-                false
-            ),
-            liquidPhase_.U().mesh(),
-            kLa_
-        )
-    );
+    kLa_ = kLaValue_;
+    return kLa_;
 }
 
 

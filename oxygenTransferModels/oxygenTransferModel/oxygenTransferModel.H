@@ -64,6 +64,9 @@ protected:
         const phaseModel& liquidPhase_;
         const phaseModel& gasPhase_;
 
+        //- kLa field
+        volScalarField kLa_;
+
 private:
 
     // Private Member Functions
@@ -118,7 +121,7 @@ public:
     // Member Functions
 
         //- Return kLa field
-        virtual tmp<volScalarField> kLa() const = 0;
+        virtual tmp<volScalarField> kLa() = 0;
 };
 
 

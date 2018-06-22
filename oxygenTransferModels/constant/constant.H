@@ -45,7 +45,7 @@ namespace oxygenTransferModels
 {
 
 /*---------------------------------------------------------------------------*\
-      Class oxygenTransferModel Declaration
+      Class oxygenTransferModels::constant Declaration
 \*---------------------------------------------------------------------------*/
 
 class constant
@@ -56,7 +56,7 @@ class constant
 protected:
 
     // Protected data
-    dimensionedScalar kLa_;
+    dimensionedScalar kLaValue_;
 
 public:
 
@@ -80,7 +80,7 @@ public:
     // Member Functions
 
         //- Return kLa field
-        tmp<volScalarField> kLa() const;
+        tmp<volScalarField> kLa();
 };
 
 

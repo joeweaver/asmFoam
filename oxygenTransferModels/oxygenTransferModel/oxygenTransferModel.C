@@ -45,7 +45,20 @@ Foam::oxygenTransferModel::oxygenTransferModel
 :
     oxygenTransferModelDict_(oxygenTransferModelDict),
     liquidPhase_(liquidPhase),
-    gasPhase_(gasPhase)
+    gasPhase_(gasPhase),
+    kLa_
+    (
+        IOobject
+        (
+            "kLa",
+            liquidPhase_.U().time().timeName(),
+            liquidPhase_.U().mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        liquidPhase_.U().mesh(),
+        dimensionedScalar("kLa", dimless/dimTime, 0)
+    )
 {}
 
 
