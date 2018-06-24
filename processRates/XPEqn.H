@@ -1,3 +1,5 @@
+// Scalar transport equation for particulate products arising from biomass decay
+
 fvScalarMatrix XPEqn
 (
     fvm::ddt(alphaLiquid, XP)

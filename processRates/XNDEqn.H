@@ -1,3 +1,5 @@
+// Scalar transport equation for particulate biodegradable organic nitrogen
+
 fvScalarMatrix XNDEqn
 (
     fvm::ddt(alphaLiquid, XND)

@@ -1,3 +1,5 @@
+// Scalar transport equation for active heterotrophic biomass
+
 fvScalarMatrix XBHEqn
 (
     fvm::ddt(alphaLiquid, XBH)

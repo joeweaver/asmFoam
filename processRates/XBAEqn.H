@@ -1,3 +1,5 @@
+// Scalar transport equation for active autotrophic biomass
+
 fvScalarMatrix XBAEqn
 (
     fvm::ddt(alphaLiquid, XBA)

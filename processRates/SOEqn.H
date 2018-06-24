@@ -1,3 +1,5 @@
+// Scalar transport equation for oxygen
+
 fvScalarMatrix SOEqn
 (
     fvm::ddt(alphaLiquid, SO)

@@ -1,3 +1,5 @@
+// Scalar transport equation for slowly biodegradable organic nitrogen
+
 fvScalarMatrix SNDEqn
 (
     fvm::ddt(alphaLiquid, SND)

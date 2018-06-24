@@ -1,3 +1,5 @@
+// Scalar transport equation for ammonia and ammonium nitrogen
+
 fvScalarMatrix SNHEqn
 (
     fvm::ddt(alphaLiquid, SNH)

@@ -1,3 +1,5 @@
+// Scalar transport equation for nitrate and nitrite nitrogen
+
 fvScalarMatrix SNOEqn
 (
     fvm::ddt(alphaLiquid, SNO)

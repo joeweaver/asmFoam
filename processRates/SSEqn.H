@@ -1,3 +1,5 @@
+// Scalar transport equation for readily biodegradable substrate
+
 fvScalarMatrix SSEqn
 (
     fvm::ddt(alphaLiquid, SS)
