@@ -1,4 +1,5 @@
 EXE_INC = \
+    -IprocessRates \
     -IoxygenTransferModels/lnInclude \
     -I$(FOAM_SOLVERS)/multiphase/multiphaseEulerFoam \
     -I$(FOAM_SOLVERS)/multiphase/multiphaseEulerFoam/multiphaseSystem/lnInclude \
