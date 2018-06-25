@@ -4,7 +4,7 @@ fvScalarMatrix SNHEqn
 (
     fvm::ddt(alphaLiquid, SNH)
     + fvm::div(liquidPhase.alphaPhi(), SNH)
-    - fvm::laplacian(alphaLiquid*(turbulence->nut()/ScT + DSNH), SNH)
+    - fvm::laplacian(alphaLiquid*DSNH, SNH)
     ==
     - alphaLiquid*iXB*rhoHeterotrophAerobicGrowth
     - alphaLiquid*iXB*rhoHeterotrophAnoxicGrowth

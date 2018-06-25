@@ -52,8 +52,8 @@ int main(int argc, char *argv[])
     #include "createMesh.H"
     #include "createControl.H"
     #include "createFields.H"
-    #include "createAsmFields.H"
     #include "readBiokineticsProperties.H"
+    #include "createAsmFields.H"
     #include "initContinuityErrs.H"
     #include "createTimeControls.H"
     #include "correctPhi.H"
@@ -117,6 +117,18 @@ int main(int argc, char *argv[])
 
             // --- Calculate dissipation coefficient for pure gas regions
             dissipationCoeff = pos(alphaGas - 0.99)/runTime.deltaT();
+
+            // --- Update scalar diffusivities
+            DSS  = (turbulence->nut()/ScT + DSSValue) *(1 - pos(alphaGas - 0.5));
+            DXS  = (turbulence->nut()/ScT + DXSValue) *(1 - pos(alphaGas - 0.5));
+            DXBH = (turbulence->nut()/ScT + DXBHValue)*(1 - pos(alphaGas - 0.5));
+            DXBA = (turbulence->nut()/ScT + DXBAValue)*(1 - pos(alphaGas - 0.5));
+            DXP  = (turbulence->nut()/ScT + DXPValue) *(1 - pos(alphaGas - 0.5));
+            DSO  = (turbulence->nut()/ScT + DSOValue) *(1 - pos(alphaGas - 0.5));
+            DSNO = (turbulence->nut()/ScT + DSNOValue)*(1 - pos(alphaGas - 0.5));
+            DSNH = (turbulence->nut()/ScT + DSNHValue)*(1 - pos(alphaGas - 0.5));
+            DSND = (turbulence->nut()/ScT + DSNDValue)*(1 - pos(alphaGas - 0.5));
+            DXND = (turbulence->nut()/ScT + DXNDValue)*(1 - pos(alphaGas - 0.5));
 
             // --- Solve ASM scalar equations
             #include "SSEqn.H"

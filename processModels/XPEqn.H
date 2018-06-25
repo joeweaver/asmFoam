@@ -4,7 +4,7 @@ fvScalarMatrix XPEqn
 (
     fvm::ddt(alphaLiquid, XP)
     + fvm::div(liquidPhase.alphaPhi(), XP)
-    - fvm::laplacian(alphaLiquid*(turbulence->nut()/ScT + DXP), XP)
+    - fvm::laplacian(alphaLiquid*DXP, XP)
     ==
       alphaLiquid*fP*rhoHeterotrophDecay
     + alphaLiquid*fP*rhoAutotrophDecay

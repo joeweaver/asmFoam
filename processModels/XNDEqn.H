@@ -4,7 +4,7 @@ fvScalarMatrix XNDEqn
 (
     fvm::ddt(alphaLiquid, XND)
     + fvm::div(liquidPhase.alphaPhi(), XND)
-    - fvm::laplacian(alphaLiquid*(turbulence->nut()/ScT + DXND), XND)
+    - fvm::laplacian(alphaLiquid*DXND, XND)
     ==
       alphaLiquid*(iXB-fP*iXP)*rhoHeterotrophDecay
     + alphaLiquid*(iXB-fP*iXP)*rhoAutotrophDecay

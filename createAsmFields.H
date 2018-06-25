@@ -264,6 +264,148 @@ volScalarField rhoOrganicNitrogenHydrolysis
     dimensionedScalar("rhoOrganicNitrogenHydrolysis", dimMass/dimVolume/dimTime, 0)
 );
 
+Info << "Creating scalar fields for species diffusivities" << endl;
+
+volScalarField DSND
+(
+    IOobject
+    (
+        "DSND",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DSNDValue
+);
+
+volScalarField DSNH
+(
+    IOobject
+    (
+        "DSNH",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DSNHValue
+);
+
+volScalarField DSNO
+(
+    IOobject
+    (
+        "DSNO",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DSNOValue
+);
+
+volScalarField DSO
+(
+    IOobject
+    (
+        "DSO",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DSOValue
+);
+
+volScalarField DSS
+(
+    IOobject
+    (
+        "DSS",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DSSValue
+);
+
+volScalarField DXBA
+(
+    IOobject
+    (
+        "DXBA",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DXBAValue
+);
+
+volScalarField DXBH
+(
+    IOobject
+    (
+        "DXBH",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DXBHValue
+);
+
+volScalarField DXND
+(
+    IOobject
+    (
+        "DXND",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DXNDValue
+);
+
+volScalarField DXP
+(
+    IOobject
+    (
+        "DXP",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DXPValue
+);
+
+volScalarField DXS
+(
+    IOobject
+    (
+        "DXS",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    DXSValue
+);
+
 Info << "Creating scalar field for dissipation function" << endl;
 
 volScalarField dissipationCoeff

@@ -153,70 +153,70 @@ Info << "  Reading species diffusivities" << endl;
 
 Info << "    Reading diffusivity of readily biodegradable substrate in water, DSS" << endl;
 
-dimensionedScalar DSS
+dimensionedScalar DSSValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DSS")
 );
 
 Info << "    Reading diffusivity of slowly biodegradable substrate in water, DXS" << endl;
 
-dimensionedScalar DXS
+dimensionedScalar DXSValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DXS")
 );
 
 Info << "    Reading diffusivity of active heterotrophic biomass in water, DXBH" << endl;
 
-dimensionedScalar DXBH
+dimensionedScalar DXBHValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DXBH")
 );
 
 Info << "    Reading diffusivity of active autotrophic biomass in water, DXBA" << endl;
 
-dimensionedScalar DXBA
+dimensionedScalar DXBAValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DXBA")
 );
 
 Info << "    Reading diffusivity of particulate products arising from biomass decay in water, DXP" << endl;
 
-dimensionedScalar DXP
+dimensionedScalar DXPValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DXP")
 );
 
 Info << "    Reading diffusivity of oxygen in water, DSO" << endl;
 
-dimensionedScalar DSO
+dimensionedScalar DSOValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DSO")
 );
 
 Info << "    Reading diffusivity of nitrate and nitrite in water, DSNO" << endl;
 
-dimensionedScalar DSNO
+dimensionedScalar DSNOValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DSNO")
 );
 
 Info << "    Reading diffusivity of ammonia and ammonium in water, DSNH" << endl;
 
-dimensionedScalar DSNH
+dimensionedScalar DSNHValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DSNH")
 );
 
 Info << "    Reading diffusivity of soluble biodegradable organic nitrogen in water, DSND" << endl;
 
-dimensionedScalar DSND
+dimensionedScalar DSNDValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DSND")
 );
 
 Info << "    Reading diffusivity of particulate biodegradable organic nitrogen in water, DXND" << endl;
 
-dimensionedScalar DXND
+dimensionedScalar DXNDValue
 (
     biokineticsProperties.subDict("diffusivities").lookup("DXND")
 );
