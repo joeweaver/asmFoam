@@ -16,37 +16,37 @@ Info << "  Reading stoichiometric parameters" << endl;
 
 Info << "    Reading autotrophic yield, YA" << endl;
 
-dimensionedScalar YA
+scalar YA
 (   
-    biokineticsProperties.subDict("stoichiometry").lookup("YA")
+    readScalar(biokineticsProperties.subDict("stoichiometry").lookup("YA"))
 );
 
 Info << "    Reading heterotrophic yield, YH" << endl;
 
-dimensionedScalar YH
+scalar YH
 (
-    biokineticsProperties.subDict("stoichiometry").lookup("YH")
+    readScalar(biokineticsProperties.subDict("stoichiometry").lookup("YH"))
 );
 
 Info << "    Reading fraction of biomass leading to particulate products, fP" << endl;
 
-dimensionedScalar fP
+scalar fP
 (
-    biokineticsProperties.subDict("stoichiometry").lookup("fP")
+    readScalar(biokineticsProperties.subDict("stoichiometry").lookup("fP"))
 );
 
 Info << "    Reading mass of nitrogen per mass of COD in biomass, iXB" << endl;
 
-dimensionedScalar iXB
+scalar iXB
 (
-    biokineticsProperties.subDict("stoichiometry").lookup("iXB")
+    readScalar(biokineticsProperties.subDict("stoichiometry").lookup("iXB"))
 );
 
 Info << "    Reading mass of nitrogen per mass of COD in products from biomass, iXP" << endl;
 
-dimensionedScalar iXP
+scalar iXP
 (
-    biokineticsProperties.subDict("stoichiometry").lookup("iXP")
+    readScalar(biokineticsProperties.subDict("stoichiometry").lookup("iXP"))
 );
 
 Info << "  Reading kinetic parameters" << endl;
