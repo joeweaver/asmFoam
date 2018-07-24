@@ -4,11 +4,12 @@ fvScalarMatrix SNDEqn
 (
     fvm::ddt(alphaLiquid, SND)
     + fvm::div(liquidPhase.alphaPhi(), SND)
-    - fvm::laplacian(alphaLiquid*DSND, SND)
+    - fvm::laplacian(fvc::interpolate(alphaLiquid)*DSND, SND)
     ==
     - alphaLiquid*rhoAmmonification
     + alphaLiquid*rhoOrganicNitrogenHydrolysis
     - fvm::Sp(dissipationCoeff, SND)
+    + dissipationCoeff*SND
 );
 
 SNDEqn.relax();

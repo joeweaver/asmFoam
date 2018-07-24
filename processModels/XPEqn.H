@@ -4,11 +4,12 @@ fvScalarMatrix XPEqn
 (
     fvm::ddt(alphaLiquid, XP)
     + fvm::div(liquidPhase.alphaPhi(), XP)
-    - fvm::laplacian(alphaLiquid*DXP, XP)
+    - fvm::laplacian(fvc::interpolate(alphaLiquid)*DXP, XP)
     ==
       alphaLiquid*fP*rhoHeterotrophDecay
     + alphaLiquid*fP*rhoAutotrophDecay
     - fvm::Sp(dissipationCoeff, XP)
+    + dissipationCoeff*XP
 );
 
 XPEqn.relax();

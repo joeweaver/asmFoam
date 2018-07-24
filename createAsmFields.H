@@ -266,7 +266,7 @@ volScalarField rhoOrganicNitrogenHydrolysis
 
 Info << "Creating scalar fields for species diffusivities" << endl;
 
-volScalarField DSND
+surfaceScalarField DSND
 (
     IOobject
     (
@@ -280,7 +280,7 @@ volScalarField DSND
     DSNDValue
 );
 
-volScalarField DSNH
+surfaceScalarField DSNH
 (
     IOobject
     (
@@ -294,7 +294,7 @@ volScalarField DSNH
     DSNHValue
 );
 
-volScalarField DSNO
+surfaceScalarField DSNO
 (
     IOobject
     (
@@ -308,7 +308,7 @@ volScalarField DSNO
     DSNOValue
 );
 
-volScalarField DSO
+surfaceScalarField DSO
 (
     IOobject
     (
@@ -322,7 +322,7 @@ volScalarField DSO
     DSOValue
 );
 
-volScalarField DSS
+surfaceScalarField DSS
 (
     IOobject
     (
@@ -336,7 +336,7 @@ volScalarField DSS
     DSSValue
 );
 
-volScalarField DXBA
+surfaceScalarField DXBA
 (
     IOobject
     (
@@ -350,7 +350,7 @@ volScalarField DXBA
     DXBAValue
 );
 
-volScalarField DXBH
+surfaceScalarField DXBH
 (
     IOobject
     (
@@ -364,7 +364,7 @@ volScalarField DXBH
     DXBHValue
 );
 
-volScalarField DXND
+surfaceScalarField DXND
 (
     IOobject
     (
@@ -378,7 +378,7 @@ volScalarField DXND
     DXNDValue
 );
 
-volScalarField DXP
+surfaceScalarField DXP
 (
     IOobject
     (
@@ -392,7 +392,7 @@ volScalarField DXP
     DXPValue
 );
 
-volScalarField DXS
+surfaceScalarField DXS
 (
     IOobject
     (
