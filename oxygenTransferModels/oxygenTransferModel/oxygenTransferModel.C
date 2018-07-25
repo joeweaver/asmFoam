@@ -51,12 +51,12 @@ Foam::oxygenTransferModel::oxygenTransferModel
         IOobject
         (
             "kLa",
-            liquidPhase_.U().time().timeName(),
-            liquidPhase_.U().mesh(),
+            liquidPhase_.time().timeName(),
+            liquidPhase_.mesh(),
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        liquidPhase_.U().mesh(),
+        liquidPhase_.mesh(),
         dimensionedScalar("kLa", dimless/dimTime, 0)
     )
 {}

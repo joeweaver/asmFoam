@@ -38,7 +38,7 @@ SourceFiles
 
 #include "dictionary.H"
 #include "runTimeSelectionTables.H"
-#include "phaseModel.H"
+#include "twoPhaseSystem.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

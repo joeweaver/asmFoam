@@ -30,16 +30,40 @@ Description
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
-#include "multiphaseSystem.H"
-#include "phaseModel.H"
-#include "dragModel.H"
-#include "heatTransferModel.H"
-#include "singlePhaseTransportModel.H"
-#include "turbulentTransportModel.H"
+#include "twoPhaseSystem.H"
+#include "phaseCompressibleTurbulenceModel.H"
 #include "pimpleControl.H"
-#include "IOMRFZoneList.H"
-#include "CorrectPhi.H"
+#include "localEulerDdtScheme.H"
+#include "fvcSmooth.H"
 #include "oxygenTransferModel.H"
+
+namespace Foam
+{
+    tmp<volScalarField> byDt(const volScalarField& vf)
+    {
+        if (fv::localEulerDdt::enabled(vf.mesh()))
+        {
+            return fv::localEulerDdt::localRDeltaT(vf.mesh())*vf;
+        }
+        else
+        {
+            return vf/vf.mesh().time().deltaT();
+        }
+    }
+
+    tmp<surfaceScalarField> byDt(const surfaceScalarField& sf)
+    {
+        if (fv::localEulerDdt::enabled(sf.mesh()))
+        {
+            return fv::localEulerDdt::localRDeltaTf(sf.mesh())*sf;
+        }
+        else
+        {
+            return sf/sf.mesh().time().deltaT();
+        }
+    }
+}
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -51,31 +75,37 @@ int main(int argc, char *argv[])
     #include "createTime.H"
     #include "createMesh.H"
     #include "createControl.H"
+    #include "createTimeControls.H"
     #include "createFields.H"
+    #include "createFieldRefs.H"
+
     #include "readBiokineticsProperties.H"
     #include "createAsmFields.H"
-    #include "initContinuityErrs.H"
-    #include "createTimeControls.H"
-    #include "correctPhi.H"
-    #include "CourantNo.H"
-    #include "setInitialDeltaT.H"
 
-    scalar slamDampCoeff
+    if (!LTS)
+    {
+        #include "CourantNo.H"
+        #include "setInitialDeltaT.H"
+    }
+
+    Switch faceMomentum
     (
-        fluid.lookupOrDefault<scalar>("slamDampCoeff", 1)
+        pimple.dict().lookupOrDefault<Switch>("faceMomentum", false)
     );
 
-    dimensionedScalar maxSlamVelocity
+    Switch implicitPhasePressure
     (
-        "maxSlamVelocity",
-        dimVelocity,
-        fluid.lookupOrDefault<scalar>("maxSlamVelocity", GREAT)
+        mesh.solverDict(alpha1.name()).lookupOrDefault<Switch>
+        (
+            "implicitPhasePressure", false
+        )
     );
+
+    #include "pUf/createRDeltaTf.H"
+    #include "pUf/createDDtU.H"
 
     #include "fluidPhases.H"
     #include "createOxygenTransferModel.H"
-
-    turbulence->validate();
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -84,8 +114,25 @@ int main(int argc, char *argv[])
     while (runTime.run())
     {
         #include "readTimeControls.H"
-        #include "CourantNo.H"
-        #include "setDeltaT.H"
+
+        int nEnergyCorrectors
+        (
+            pimple.dict().lookupOrDefault<int>("nEnergyCorrectors", 1)
+        );
+
+        if (LTS)
+        {
+            #include "setRDeltaT.H"
+            if (faceMomentum)
+            {
+                #include "setRDeltaTf.H"
+            }
+        }
+        else
+        {
+            #include "CourantNos.H"
+            #include "setDeltaT.H"
+        }
 
         runTime++;
         Info<< "Time = " << runTime.timeName() << nl << endl;
@@ -96,39 +143,62 @@ int main(int argc, char *argv[])
         // --- Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())
         {
-            turbulence->correct();
-            fluid.solve();
-            rho = fluid.rho();
-            #include "zonePhaseVolumes.H"
-
-            //#include "TEqns.H"
-            #include "UEqns.H"
-
-            // --- Pressure corrector loop
-            while (pimple.correct())
+            if (solveFlow)
             {
-                #include "pEqn.H"
+                fluid.solve();
+                fluid.correct();
+
+                #include "YEqns.H"
+
+                if (faceMomentum)
+                {
+                    #include "pUf/UEqns.H"
+                    #include "EEqns.H"
+                    #include "pUf/pEqn.H"
+                    #include "pUf/DDtU.H"
+                }
+                else
+                {
+                    #include "pU/UEqns.H"
+                    #include "EEqns.H"
+                    #include "pU/pEqn.H"
+                }
+
+                fluid.correctKinematics();
+
+                if (pimple.turbCorr())
+                {
+                    fluid.correctTurbulence();
+                }
             }
 
-            #include "DDtU.H"
-
-            // --- Limit liquid phase velocities in gas phase
-            liquidPhase.U() *= 1 - pos(alphaGas - 0.99);
-
             // --- Calculate dissipation coefficient for pure gas regions
-            dissipationCoeff = pos(alphaGas - 0.99)/runTime.deltaT();
+            dissipationCoeff = 0.001*pos(alphaGas - 0.99)/runTime.deltaT();
 
             // --- Update scalar diffusivities
-            DSS  = (turbulence->nut()/ScT + DSSValue) *(1 - pos(alphaGas - 0.5));
-            DXS  = (turbulence->nut()/ScT + DXSValue) *(1 - pos(alphaGas - 0.5));
-            DXBH = (turbulence->nut()/ScT + DXBHValue)*(1 - pos(alphaGas - 0.5));
-            DXBA = (turbulence->nut()/ScT + DXBAValue)*(1 - pos(alphaGas - 0.5));
-            DXP  = (turbulence->nut()/ScT + DXPValue) *(1 - pos(alphaGas - 0.5));
-            DSO  = (turbulence->nut()/ScT + DSOValue) *(1 - pos(alphaGas - 0.5));
-            DSNO = (turbulence->nut()/ScT + DSNOValue)*(1 - pos(alphaGas - 0.5));
-            DSNH = (turbulence->nut()/ScT + DSNHValue)*(1 - pos(alphaGas - 0.5));
-            DSND = (turbulence->nut()/ScT + DSNDValue)*(1 - pos(alphaGas - 0.5));
-            DXND = (turbulence->nut()/ScT + DXNDValue)*(1 - pos(alphaGas - 0.5));
+            surfaceScalarField mask = fvc::interpolate(alphaGas);
+            forAll(mask, faceI)
+            {
+                if (alphaGas[mesh.owner()[faceI]] > 0.2 || alphaGas[mesh.neighbour()[faceI]] > 0.2)
+                {
+                    mask[faceI] = 0;
+                }
+                else
+                {
+                    mask[faceI] = 1;
+                }
+            }
+            surfaceScalarField DT = fvc::interpolate(liquidPhase.turbulence().nuEff()/ScT);
+            DSS  = (DT + DSSValue)*mask;
+            DXS  = (DT + DXSValue)*mask;
+            DXBH = (DT + DXBHValue)*mask;
+            DXBA = (DT + DXBAValue)*mask;
+            DXP  = (DT + DXPValue)*mask;
+            DSO  = (DT + DSOValue)*mask;
+            DSNO = (DT + DSOValue)*mask;
+            DSNH = (DT + DSNHValue)*mask;
+            DSND = (DT + DSNDValue)*mask;
+            DXND = (DT + DXNDValue)*mask;
 
             // --- Solve ASM scalar equations
             #include "SSEqn.H"
@@ -141,6 +211,7 @@ int main(int argc, char *argv[])
             #include "SNHEqn.H"
             #include "SNDEqn.H"
             #include "XNDEqn.H"
+
         }
 
         runTime.write();

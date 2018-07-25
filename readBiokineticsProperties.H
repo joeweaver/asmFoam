@@ -246,4 +246,11 @@ word gasName
     biokineticsProperties.lookup("gasName")
 );
 
+Info << "  Reading flow solver switch, solveFlow" << endl;
+
+Switch solveFlow
+(
+    Switch(biokineticsProperties.lookupOrDefault<Switch>("solveFlow", true))
+);
+
 Info << endl;
