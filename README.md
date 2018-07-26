@@ -1,8 +1,8 @@
 # asmFoam - A multiphase CFD solver with coupled activated sludge biokinetics
 
-`asmFoam` is a multiphase CFD solver that is coupled with an activated sludge model, based on the ASM1 model of Henze et al. (1987). There are currently two oxygen transfer models available, based on: (i) constant, spatially uniform values of `kL` (mass transfer coefficient) and `a` (interfacial area), expressedd as the product, kLa  (ii) dynamically calculated values of `kL`, based on Higbie's penetration theory, and `a`, based on local bubble size and gas volume fraction.
+`asmFoam` is a multiphase CFD solver that is coupled with an activated sludge model, based on the ASM1 model of Henze et al. (1987). There are currently two oxygen transfer models available, based on: (i) constant, spatially uniform values of `kL` (mass transfer coefficient) and `a` (interfacial area), expressed as the product, kLa  (ii) dynamically calculated values of `kL`, based on Higbie's penetration theory, and `a`, based on local bubble size and gas volume fraction.
 
-The model is implemented using the [OpenFOAM](https://openfoam.org) libaries for discretization and solution of the governing equations.
+The model is implemented using the [OpenFOAM](https://openfoam.org) libraries for discretization and solution of the governing equations.
 
 ## Getting Started
 
@@ -39,10 +39,9 @@ stoichiometry
     iXB    0.086;
     iXP    0.06;
 }
-
 ```
 
-Note that all of the stoichometric coefficients are dimensionless. A description of each parameter is given in the following table:
+Note that all of the stoichiometric coefficients are dimensionless. A description of each parameter is given in the following table:
 
 | Parameter | Description |
 | --------- | ----------- |
@@ -72,8 +71,8 @@ kinetics
     etag        etag  [ 0  0  0 0 0 0 0] 0.8;
     etah        etah  [ 0  0  0 0 0 0 0] 0.4;
 }
-
 ```
+
 The dimensions of each parameter is specified using the OpenFOAM convention, where each value corresponds to the power of each base unit, where the order of the dimensions is Mass [kilogram, kg], Length [metre, m], Time [second, s], Temperature [Kelvin, K], Quantity [mole, mol], Current [Ampere, A], Luminous Intensity [candela, cd]. A description of each parameter is given in the following table:
 
 | Parameter | Description | Units |
@@ -92,6 +91,74 @@ The dimensions of each parameter is specified using the OpenFOAM convention, whe
 | kh        | Maximum specific hydrolysis rate | s^-1 |
 | etag      | Correction factor for muH under anoxic conditions | dimensionless |
 | etah      | Correction factor for hydrolysis under anoxic conditions | dimensionless |
+
+The diffusivities of each species in water are defined as:
+
+```
+diffusivities
+{
+    DSS         DSS    [ 0 2 -1 0 0 0 0] 1e-6;
+    DSO         DSO    [ 0 2 -1 0 0 0 0] 1e-6;
+    DSNO        DSNO   [ 0 2 -1 0 0 0 0] 1e-6;
+    DSNH        DSNH   [ 0 2 -1 0 0 0 0] 1e-6;
+    DSND        DSND   [ 0 2 -1 0 0 0 0] 1e-6;
+    DXS         DXS    [ 0 2 -1 0 0 0 0] 1e-9;
+    DXBH        DXBH   [ 0 2 -1 0 0 0 0] 1e-9;
+    DXBA        DXBA   [ 0 2 -1 0 0 0 0] 1e-9;
+    DXP         DXP    [ 0 2 -1 0 0 0 0] 1e-9;
+    DXND        DXND   [ 0 2 -1 0 0 0 0] 1e-9;
+}
+```
+
+The dimensions of each diffusivity is m^2/s. It is recommended that for particulate species, which do not diffuse in water, a small diffusivity is specified for numerical stability.
+
+An oxygen transfer model must be specified to determine the rate of oxygen transfer from the gas phase to the liquid phase. The model can be specified as either `constant` or `dynamic`. The `constant` model assumes a single, spatially uniform value for `kLa` and is specified through the following dictionary entry:
+
+```
+oxygenTransferModel
+{
+    type constant;
+    constantCoeffs
+    {
+        kLa      kLa   [ 0 0 -1 0 0 0 0 ] 0.00243;
+    }
+}
+```
+
+The `dynamic` model is specified as follows:
+
+```
+oxygenTransferModel
+{
+    type dynamic;
+    dynamicCoeffs
+    {
+        DL       DL    [ 0 2 -1 0 0 0 0 ] 1.97e-9;
+    }
+}
+```
+
+where `DL` is the diffusivity of oxygen in water. For both models, the oxygen saturation concentration must be specified as follows:
+
+```
+SOsat    SOsat [ 1 -3  0 0 0 0 0] 0.00928;
+```
+
+Other parameters that need to be specified are given by example as follows:
+
+```
+ScT        0.7;
+liquidName water;
+gasName    air;
+```
+
+A description of each of these parameters is given in the following table:
+
+| Parameter  | Description |
+| ---------- | ----------- |
+| ScT        | Turbulent Schmidt number, used to determine turbulent diffusivity for each species |
+| liquidName | Name of the liquid phase, as specified in `phaseProperties` dictionary |
+| gasName    | Name of the gas phase, as specified in `phaseProperties` dictionary |
 
 ### No Flow Verification Problem
 
